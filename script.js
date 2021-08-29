@@ -52,35 +52,53 @@ var passwordLength = function() {
 }
 
 var generatePassword = function() {
+  // an empty string to hold possible password characters
   var passwordContains = "";
+
+  // an empty string to hold the actual password
   var password = "";
-  var lower = "abcdefghijklmnopqrstuvwxyz";
-  var upper = lower.toUpperCase();
-  var symbol = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
-  var number = "0123456789";
-  var length = passwordLength();
 
-  if (includeLowerCase()) {
-    passwordContains = passwordContains + lower;
-    console.log(passwordContains);
-  }
-  if (includeUpperCase()) {
-    passwordContains = passwordContains + upper;
-    console.log(passwordContains);
-  }
-  if (includeNumber()) {
-    passwordContains = passwordContains + number;
-    console.log(passwordContains);
-  }
-  if (includeSymbol()) {
-    passwordContains = passwordContains + symbol;
-    console.log(passwordContains);
-  }
-  console.log(length);
+  // strings containing possible additions to the passwordContains string depending on user input
+  var lowers = "abcdefghijklmnopqrstuvwxyz";
+  var uppers = lowers.toUpperCase();
+  var symbols = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
+  var numbers = "0123456789";
 
-  for (var i = 0; i < length; i++) {
+  // initiate true/false criteria variables by getting user input
+  var hasLower = includeLowerCase();
+  var hasUpper = includeUpperCase();
+  var hasNumber = includeNumber();
+  var hasSymbol = includeSymbol();
+  // validate that the user picked at least one criteria
+  if (hasLower === false && hasUpper === false && hasNumber === false && hasSymbol === false) {
+    window.alert("You must select at least 1 criteria!");
+    generatePassword();
+  }
+
+  // prompt the user for password length and validate
+  var hasLength = passwordLength();
+
+  // if the password criteria is selected, add to the passwordContains string
+  if (hasLower) {
+    passwordContains = passwordContains + lowers;
+  } 
+  if (hasUpper) {
+    passwordContains = passwordContains + uppers;
+  }
+  if (hasNumber) {
+    passwordContains = passwordContains + numbers;
+  }
+  if (hasSymbol) {
+    passwordContains = passwordContains + symbols;
+  }
+
+  console.log("Length of the string is: " + hasLength);
+  console.log("Password may contain: " + passwordContains);
+
+  
+
+  for (var i = 0; i < hasLength; i++) {
     var p = Math.floor(Math.random() * passwordContains.length);
-    console.log(p);
     password = password + passwordContains[p];
     console.log(password);
   }
