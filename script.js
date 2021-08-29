@@ -51,6 +51,43 @@ var passwordLength = function() {
   }
 }
 
+var generatePassword = function() {
+  var passwordContains = "";
+  var password = "";
+  var lower = "abcdefghijklmnopqrstuvwxyz";
+  var upper = lower.toUpperCase();
+  var symbol = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
+  var number = "0123456789";
+  var length = passwordLength();
+
+  if (includeLowerCase()) {
+    passwordContains = passwordContains + lower;
+    console.log(passwordContains);
+  }
+  if (includeUpperCase()) {
+    passwordContains = passwordContains + upper;
+    console.log(passwordContains);
+  }
+  if (includeNumber()) {
+    passwordContains = passwordContains + number;
+    console.log(passwordContains);
+  }
+  if (includeSymbol()) {
+    passwordContains = passwordContains + symbol;
+    console.log(passwordContains);
+  }
+  console.log(length);
+
+  for (var i = 0; i < length; i++) {
+    var p = Math.floor(Math.random() * passwordContains.length);
+    console.log(p);
+    password = password + passwordContains[p];
+    console.log(password);
+  }
+
+  return password;
+}
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
