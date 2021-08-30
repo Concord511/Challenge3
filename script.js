@@ -47,15 +47,45 @@ var passwordLength = function() {
   var length = window.prompt("Please enter a numberic value between 8 - 128");
   length = parseInt(length);
   if (length >= 8 && length <= 128) {
-    console.log("I also made it here.")
     console.log(length);
     return length;
   }
   else {
     window.alert("Please try again.");
-    console.log("I made it here")
     return passwordLength();
   }
+}
+
+// function to generate password with given criteria taken as parameter and validate
+var generate = function(criteria, passwordLength) {
+  // an empty string to hold the actual password
+  var password = "";
+
+  // iterate through the string containing viable password characters and concatenate them upon the password string to return
+  for (var i = 0; i < passwordLength; i++) {
+    var p = Math.floor(Math.random() * criteria.length);
+    password = password + criteria[p];
+    console.log(password);
+  }
+
+  return password;
+}
+
+// function to validate (true/false) if the password contains at least one character from a subset of the password criteria
+var validate = function(criteria, password) {
+  for (var i = 0; i < password.length; i++) {
+    var letter = password[i];
+    for (var j = 0; j < criteria.length; j++) {
+      console.log("Comparing character " + letter + " to " + criteria[j]);
+      if (letter === criteria[j]) {
+        console.log("Match found. Returning 'true'");
+        return true;
+      }
+    }
+  }
+  // if the password does not contain at least one of the given criteria, return false
+  console.log("Match not found. Returning 'false'");
+  return false;
 }
 
 // function called when user clicks "Generate Password" button
@@ -64,9 +94,9 @@ var generatePassword = function() {
 
   // an empty string to hold possible password characters to draw from
   var passwordContains = "";
-
-  // an empty string to hold the actual password
-  var password = "";
+  
+  // empty string to contain password;
+  var password = ""
 
   // strings containing possible additions to the passwordContains string depending on user input
   var lowers = "abcdefghijklmnopqrstuvwxyz";
@@ -103,16 +133,51 @@ var generatePassword = function() {
   }
 
   console.log("Length of the string is: " + hasLength);
-  console.log("Password may contain: " + passwordContains);
+  console.log("Password may contain the following characters: " + passwordContains);
 
-  
+  // call the function to generate the password and pass it the user-given criteria (passwordContains & length)
+  password = generate(passwordContains, hasLength);
+  console.log("Password is " + password);
 
-  for (var i = 0; i < hasLength; i++) {
-    var p = Math.floor(Math.random() * passwordContains.length);
-    password = password + passwordContains[p];
-    console.log(password);
+  var validation = function() {
+    // validate that the criteria is met (at least one of each character from the chosen criteria is present)
+    if (hasLower) {
+      // if validate false generate new password / validate again
+      console.log("Validating if the password contains at least one lower case letter.");
+      if (validate(lowers, password) === false) {
+        password = generate(passwordContains, hasLength);
+        return validation();
+      }
+    }
+    
+    if (hasUpper) {
+      console.log("Validating if the password contains at least one upper case letter.");
+      if (validate(uppers, password) === false) {
+        password = generate(passwordContains, hasLength);
+        return validation();
+      }
+    }
+    
+    if (hasNumber) {
+      console.log("Validating if the password contains at least one number.");
+      if (validate(numbers, password) === false) {
+        password = generate(passwordContains, hasLength);
+        return validation();
+      }
+    }
+      
+    if (hasSymbol) {
+      console.log("Validating if the password contains at least one symbol.");
+      if (validate(symbols, password) === false) {
+        password = generate(passwordContains, hasLength);
+        return validation();
+      }
+    }
+
+    return password;
   }
-
+    
+  password = validation();
   return password;
 }
 
