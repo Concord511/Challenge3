@@ -65,9 +65,8 @@ var generate = function(criteria, passwordLength) {
   for (var i = 0; i < passwordLength; i++) {
     var p = Math.floor(Math.random() * criteria.length);
     password = password + criteria[p];
-    console.log(password);
   }
-
+  console.log("Password generated: " + password);
   return password;
 }
 
@@ -100,9 +99,9 @@ var generatePassword = function() {
   // strings containing possible additions to the passwordContains string depending on user input
   var lowers = "abcdefghijklmnopqrstuvwxyz";
   var uppers = lowers.toUpperCase();
-  var symbols = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
   var numbers = "0123456789";
-
+  var symbols = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
+  
   // initiate true/false password criteria inclusion variables by getting user input
   var hasLower = false;
   var hasUpper = false;
@@ -141,12 +140,8 @@ var generatePassword = function() {
     passwordContains = passwordContains + symbols;
   }
 
-  console.log("Length of the string is: " + hasLength);
-  console.log("Password may contain the following characters: " + passwordContains);
-
   // call the function to generate the password and pass it the user-given criteria (passwordContains & length)
   password = generate(passwordContains, hasLength);
-  console.log("Password is " + password);
 
   var validation = function() {
     // validate that the criteria is met (at least one of each character from the chosen criteria is present)
