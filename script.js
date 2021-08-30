@@ -76,9 +76,8 @@ var validate = function(criteria, password) {
   for (var i = 0; i < password.length; i++) {
     var letter = password[i];
     for (var j = 0; j < criteria.length; j++) {
-      console.log("Comparing character " + letter + " to " + criteria[j]);
       if (letter === criteria[j]) {
-        console.log("Match found. Returning 'true'");
+        console.log("Match found for " + letter + ". Returning 'true'");
         return true;
       }
     }
@@ -105,10 +104,10 @@ var generatePassword = function() {
   var numbers = "0123456789";
 
   // initiate true/false password criteria inclusion variables by getting user input
-  var hasLower = includeLowerCase();
-  var hasUpper = includeUpperCase();
-  var hasNumber = includeNumber();
-  var hasSymbol = includeSymbol();
+  var hasLower = false;
+  var hasUpper = false;
+  var hasNumber = false;
+  var hasSymbol = false;
   
   // function and call to ask for user input
   var getInput = function() {
