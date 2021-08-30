@@ -92,11 +92,11 @@ var validate = function(criteria, password) {
 var generatePassword = function() {
   window.alert("Please choose from the following password criteria prompts:");
 
+  // empty string to hold the password as it's generated and validated;
+  var password = ""
+
   // an empty string to hold possible password characters to draw from
   var passwordContains = "";
-  
-  // empty string to contain password;
-  var password = ""
 
   // strings containing possible additions to the passwordContains string depending on user input
   var lowers = "abcdefghijklmnopqrstuvwxyz";
@@ -104,15 +104,25 @@ var generatePassword = function() {
   var symbols = "!'#$%&()*+,-./:;<=>?@[]^_`{}|~\\" + '"';
   var numbers = "0123456789";
 
-  // initiate true/false criteria variables by getting user input
+  // initiate true/false password criteria inclusion variables by getting user input
   var hasLower = includeLowerCase();
   var hasUpper = includeUpperCase();
   var hasNumber = includeNumber();
   var hasSymbol = includeSymbol();
+  
+  // function and call to ask for user input
+  var getInput = function() {
+    hasLower = includeLowerCase();
+    hasUpper = includeUpperCase();
+    hasNumber = includeNumber();
+    hasSymbol = includeSymbol();
+  }
+  getInput();
+  
   // validate that the user picked at least one criteria
   if (hasLower === false && hasUpper === false && hasNumber === false && hasSymbol === false) {
     window.alert("You must select at least 1 criteria!");
-    generatePassword();
+    getInput();
   }
 
   // prompt the user for password length and validate
