@@ -1,6 +1,6 @@
-// Assignment code here
+// function to prompt for lower case inclusion
 var includeLowerCase = function() {
-  var lowerTrue = window.confirm("Password will include at least one LOWER case letter?");
+  var lowerTrue = window.confirm("Will your new password include at least one LOWER case letter?");
   if (lowerTrue) {
     return true;
   }
@@ -9,8 +9,9 @@ var includeLowerCase = function() {
   }
 }
 
+// function to prompt for upper case inclusion
 var includeUpperCase = function() {
-  var upperTrue = window.confirm("Password will include at least one UPPER case letter?");
+  var upperTrue = window.confirm("Will your new password include at least one UPPER case letter?");
   if (upperTrue) {
     return true;
   }
@@ -19,8 +20,9 @@ var includeUpperCase = function() {
   }
 }
 
+// function to prompt for number inclusion
 var includeNumber = function() {
-  var numberTrue = window.confirm("Password will include at least one number?");
+  var numberTrue = window.confirm("Will your new password include at least one NUMBER?");
   if (numberTrue) {
     return true;
   }
@@ -29,8 +31,9 @@ var includeNumber = function() {
   }
 }
 
+// function to prompt for symbol inclusion
 var includeSymbol = function() {
-  var symbolTrue = window.confirm("Password will include at least one symbol?");
+  var symbolTrue = window.confirm("Will your new password include at least one SYMBOL?");
   if (symbolTrue) {
     return true;
   }
@@ -39,20 +42,27 @@ var includeSymbol = function() {
   }
 }
 
+// function to prompt user for password length, then validate it is within parameters
 var passwordLength = function() {
   var length = window.prompt("Please enter a numberic value between 8 - 128");
   length = parseInt(length);
   if (length >= 8 && length <= 128) {
+    console.log("I also made it here.")
+    console.log(length);
     return length;
   }
   else {
     window.alert("Please try again.");
-    passwordLength();
+    console.log("I made it here")
+    return passwordLength();
   }
 }
 
+// function called when user clicks "Generate Password" button
 var generatePassword = function() {
-  // an empty string to hold possible password characters
+  window.alert("Please choose from the following password criteria prompts:");
+
+  // an empty string to hold possible password characters to draw from
   var passwordContains = "";
 
   // an empty string to hold the actual password
