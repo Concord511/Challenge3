@@ -1,4 +1,4 @@
-// function to prompt for lower case inclusion
+// function to prompt user for lower case inclusion
 var includeLowerCase = function() {
   var lowerTrue = window.confirm("Will your new password include at least one LOWER case letter?");
   if (lowerTrue) {
@@ -9,7 +9,7 @@ var includeLowerCase = function() {
   }
 }
 
-// function to prompt for upper case inclusion
+// function to prompt user for upper case inclusion
 var includeUpperCase = function() {
   var upperTrue = window.confirm("Will your new password include at least one UPPER case letter?");
   if (upperTrue) {
@@ -20,7 +20,7 @@ var includeUpperCase = function() {
   }
 }
 
-// function to prompt for number inclusion
+// function to prompt user for number inclusion
 var includeNumber = function() {
   var numberTrue = window.confirm("Will your new password include at least one NUMBER?");
   if (numberTrue) {
@@ -31,7 +31,7 @@ var includeNumber = function() {
   }
 }
 
-// function to prompt for symbol inclusion
+// function to prompt user for symbol inclusion
 var includeSymbol = function() {
   var symbolTrue = window.confirm("Will your new password include at least one SYMBOL?");
   if (symbolTrue) {
@@ -56,7 +56,7 @@ var passwordLength = function() {
   }
 }
 
-// function to generate password with given criteria taken as parameter and validate
+// function to generate password with given criteria and length taken as parameters
 var generate = function(criteria, passwordLength) {
   // an empty string to hold the actual password
   var password = "";
@@ -70,7 +70,7 @@ var generate = function(criteria, passwordLength) {
   return password;
 }
 
-// function to validate (true/false) if the password contains at least one character from a subset of the password criteria
+// function to validate at least one character from given criteria (parameter1) is present in the password (parameter2)
 var validate = function(criteria, password) {
   for (var i = 0; i < password.length; i++) {
     var letter = password[i];
@@ -81,22 +81,20 @@ var validate = function(criteria, password) {
       }
     }
   }
-  // if the password does not contain at least one of the given criteria, return false
   console.log("Match not found. Returning 'false'");
   return false;
 }
 
-// function called when user clicks "Generate Password" button
+// Main function called when user clicks "Generate Password" button
 var generatePassword = function() {
   window.alert("Please choose from the following password criteria prompts:");
 
-  // empty string to hold the password as it's generated and validated;
+  // an empty string to hold the password that will be returned at the end of this function;
   var password = ""
 
   // an empty string to hold possible password characters to draw from
   var passwordContains = "";
-
-  // strings containing possible additions to the passwordContains string depending on user input
+  // password criteria strings
   var lowers = "abcdefghijklmnopqrstuvwxyz";
   var uppers = lowers.toUpperCase();
   var numbers = "0123456789";
@@ -123,26 +121,32 @@ var generatePassword = function() {
     getInput();
   }
 
-  // prompt the user for password length and validate
+  // create a password length variable and initiate it with the cuntion to prompt the user for length (function also validates)
   var hasLength = passwordLength();
 
-  // if the password criteria is selected, add to the passwordContains string
+  // if a password criteria is selected, add criteria string the passwordContains string
   if (hasLower) {
     passwordContains = passwordContains + lowers;
+    console.log("User elected to include lower case letters.");
   } 
   if (hasUpper) {
     passwordContains = passwordContains + uppers;
+    console.log("User elected to include upper case letters.");
   }
   if (hasNumber) {
     passwordContains = passwordContains + numbers;
+    console.log("User elected to include numbers.");
   }
   if (hasSymbol) {
     passwordContains = passwordContains + symbols;
+    console.log("User elected to include symbols.");
   }
-
-  // call the function to generate the password and pass it the user-given criteria (passwordContains & length)
+  console.log("Password can include any of the following characters: " + passwordContains);
+  
+  // call the function to generate the password and pass it the user-specified criteria and length
   password = generate(passwordContains, hasLength);
 
+  // function to check which criteria have been selected, and validate accordingly
   var validation = function() {
     // validate that the criteria is met (at least one of each character from the chosen criteria is present)
     if (hasLower) {
@@ -153,7 +157,6 @@ var generatePassword = function() {
         return validation();
       }
     }
-    
     if (hasUpper) {
       console.log("Validating if the password contains at least one upper case letter.");
       if (validate(uppers, password) === false) {
@@ -161,7 +164,6 @@ var generatePassword = function() {
         return validation();
       }
     }
-    
     if (hasNumber) {
       console.log("Validating if the password contains at least one number.");
       if (validate(numbers, password) === false) {
@@ -169,7 +171,6 @@ var generatePassword = function() {
         return validation();
       }
     }
-      
     if (hasSymbol) {
       console.log("Validating if the password contains at least one symbol.");
       if (validate(symbols, password) === false) {
@@ -177,11 +178,11 @@ var generatePassword = function() {
         return validation();
       }
     }
-
     return password;
   }
-    
   password = validation();
+
+  //return the password to the writePassword() function
   return password;
 }
 

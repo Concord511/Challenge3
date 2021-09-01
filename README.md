@@ -1,8 +1,10 @@
 # Password Generator
 
-This program generates a password between 8 and 128 characters long. It prompts the user for input in the form of password criteria.
+## Purpose
 
-### Password Criteria
+This program generates a password between 8 and 128 characters long. It prompts the user for input in the form of selecting password criteria.
+
+### Password Criteria Options:
 
 - Lower case letters
 - Upper case letters
