@@ -19,7 +19,7 @@ The Password Generator is live at: concord511.github.io/Challenge3
 
 ## Screenshot
 
-![IPassword Generator](./assets/images/screenshot.jpg)
+![Password Generator](./assets/images/screenshot.jpg)
 
 ## Link to Live Page
 
